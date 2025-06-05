@@ -34,7 +34,7 @@ export default function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
-        <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+        <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <FileText className="h-6 w-6" />
             <span className="text-xl">FileHub</span>
@@ -67,22 +67,22 @@ export default function DashboardPage() {
         </div>
       </header>
       <main className="flex-1">
-        <div className="container px-4 py-6 md:px-6 md:py-8">
-          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div className="container mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-8">
+          <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
             <div>
               <h1 className="text-3xl font-bold">Dashboard</h1>
               <p className="text-gray-500">Manage your files and profile</p>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2 rounded-md border bg-gray-50 px-3 py-1">
-                <span className="text-sm font-medium">Your URL:</span>
-                <span className="text-sm text-gray-500">johndoe.filehub.com</span>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <div className="flex items-center gap-2 rounded-md border bg-gray-50 px-3 py-1 text-xs sm:text-sm">
+                <span className="font-medium">Your URL:</span>
+                <span className="text-gray-500 truncate">johndoe.filehub.com</span>
                 <Button variant="ghost" size="icon" className="h-6 w-6">
                   <Copy className="h-3 w-3" />
                   <span className="sr-only">Copy URL</span>
                 </Button>
               </div>
-              <Button asChild>
+              <Button asChild className="w-full sm:w-auto">
                 <Link href="/johndoe">View Page</Link>
               </Button>
             </div>
@@ -110,8 +110,8 @@ export default function DashboardPage() {
                   <CardDescription>Manage the files on your personal page</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="rounded-md border">
-                    <div className="grid grid-cols-12 border-b bg-gray-50 p-3 text-sm font-medium">
+                  <div className="rounded-md border overflow-x-auto">
+                    <div className="grid grid-cols-12 border-b bg-gray-50 p-3 text-sm font-medium min-w-[600px]">
                       <div className="col-span-6">Name</div>
                       <div className="col-span-2">Size</div>
                       <div className="col-span-3">Date Added</div>
@@ -121,11 +121,11 @@ export default function DashboardPage() {
                       files.map((file) => (
                         <div
                           key={file.id}
-                          className="grid grid-cols-12 items-center border-b p-3 text-sm last:border-0"
+                          className="grid grid-cols-12 items-center border-b p-3 text-sm last:border-0 min-w-[600px]"
                         >
                           <div className="col-span-6 flex items-center gap-2">
-                            <FileText className="h-4 w-4 text-gray-500" />
-                            <span>{file.name}</span>
+                            <FileText className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                            <span className="truncate">{file.name}</span>
                           </div>
                           <div className="col-span-2">{file.size}</div>
                           <div className="col-span-3">{file.date}</div>

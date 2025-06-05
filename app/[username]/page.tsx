@@ -29,7 +29,7 @@ export default function UserPage({ params }: UserPageProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
-        <div className="container flex h-16 items-center px-4 md:px-6">
+        <div className="container mx-auto max-w-7xl flex h-16 items-center px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <FileText className="h-6 w-6" />
             <span className="text-xl">FileHub</span>
@@ -37,10 +37,10 @@ export default function UserPage({ params }: UserPageProps) {
         </div>
       </header>
       <main className="flex-1">
-        <div className="container max-w-3xl px-4 py-8 md:px-6 md:py-12">
+        <div className="container mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
           <div className="mb-8 text-center">
             <h1 className="mb-2 text-3xl font-bold">{userData.displayName}</h1>
-            <p className="text-gray-500">{userData.bio}</p>
+            <p className="text-gray-500 text-lg">{userData.bio}</p>
             <p className="text-sm text-gray-400">{username}.filehub.com</p>
           </div>
           <Card className="overflow-hidden">
@@ -50,14 +50,16 @@ export default function UserPage({ params }: UserPageProps) {
                   key={file.id}
                   className="flex items-center justify-between rounded-md border p-3 transition-colors hover:bg-gray-50"
                 >
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-gray-500" />
-                    <div>
-                      <div className="font-medium">{file.name}</div>
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <FileText className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <div className="font-medium truncate">{file.name}</div>
                       <div className="text-xs text-gray-500">{file.size}</div>
                     </div>
                   </div>
-                  <Button size="sm">Download</Button>
+                  <Button size="sm" className="flex-shrink-0 ml-2">
+                    Download
+                  </Button>
                 </div>
               ))}
             </div>

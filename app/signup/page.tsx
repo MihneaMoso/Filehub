@@ -15,7 +15,7 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
-        <div className="container flex h-16 items-center px-4 md:px-6">
+        <div className="container mx-auto max-w-7xl flex h-16 items-center px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <FileText className="h-6 w-6" />
             <span className="text-xl">FileHub</span>
