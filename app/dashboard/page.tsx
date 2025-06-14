@@ -61,7 +61,7 @@ export default async function DashboardPage() {
           </div>
           <div className="text-2xl font-bold">{stats.totalFiles}</div>
         </div>
-        
+
         <div className="rounded-lg border bg-card p-6 shadow-sm">
           <div className="flex flex-row items-center justify-between space-y-0 pb-2">
             <h3 className="text-sm font-medium">Total Downloads</h3>
@@ -69,7 +69,7 @@ export default async function DashboardPage() {
           </div>
           <div className="text-2xl font-bold">{stats.totalDownloads}</div>
         </div>
-        
+
         <div className="rounded-lg border bg-card p-6 shadow-sm">
           <div className="flex flex-row items-center justify-between space-y-0 pb-2">
             <h3 className="text-sm font-medium">Storage Used</h3>
@@ -78,7 +78,7 @@ export default async function DashboardPage() {
           <div className="text-2xl font-bold">{stats.storageUsed}</div>
           <p className="text-xs text-muted-foreground">of {stats.storageLimit}</p>
         </div>
-        
+
         <div className="rounded-lg border bg-card p-6 shadow-sm">
           <div className="flex flex-row items-center justify-between space-y-0 pb-2">
             <h3 className="text-sm font-medium">Page Views</h3>
