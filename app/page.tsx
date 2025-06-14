@@ -1,42 +1,12 @@
 import Link from "next/link"
 import { ArrowRight, FileText, Upload, User } from "lucide-react"
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { SignInButton, SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs"
 
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border-b">
-        <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4 md:px-6">
-          <Link href="/" className="flex items-center gap-2 font-semibold">
-            <FileText className="h-6 w-6" />
-            <span className="text-xl">FileHub</span>
-          </Link>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <ThemeToggle />
-            <SignedOut>
-              <SignInButton>
-                <Button variant="ghost" size="sm">
-                  Sign In
-                </Button>
-              </SignInButton>
-              <SignUpButton>
-                <Button size="sm">Sign Up</Button>
-              </SignUpButton>
-            </SignedOut>
-            <SignedIn>
-              <Link href="/dashboard">
-                <Button variant="ghost" size="sm">
-                  Dashboard
-                </Button>
-              </Link>
-              <UserButton />
-            </SignedIn>
-          </div>
-        </div>
-      </header>
+    <>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container mx-auto max-w-7xl px-4 md:px-6">
@@ -172,6 +142,6 @@ export default function Home() {
           </nav>
         </div>
       </footer>
-    </div>
+    </>
   )
 }

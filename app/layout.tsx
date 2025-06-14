@@ -1,26 +1,11 @@
 import type React from "react"
 import type { Metadata } from "next"
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
+import Link from "next/link"
+import { FileText } from "lucide-react"
+import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/theme-provider"
+import { Header } from "@/components/header"
 import "./globals.css"
-// import { Geist, Geist_Mono } from 'next/font/google'
-// 
-// const geistSans = Geist({
-  // variable: '--font-geist-sans',
-  // subsets: ['latin'],
-// })
-// 
-// const geistMono = Geist_Mono({
-  // variable: '--font-geist-mono',
-  // subsets: ['latin'],
-// })
 
 export const metadata: Metadata = {
   title: "FileHub: Personal File Sharing Platform",
@@ -45,7 +30,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <div className="flex-1">
+                {children}
+              </div>
+            </div>
           </ThemeProvider>
         </body>
       </html>
