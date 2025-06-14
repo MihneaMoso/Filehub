@@ -81,7 +81,7 @@ export function FileUploader() {
         <Upload className="mb-2 h-10 w-10 text-gray-400" />
         <p className="mb-1 text-lg font-medium">Drag and drop files here</p>
         <p className="mb-4 text-sm text-gray-500">or click to browse files</p>
-        <Button variant="outline" asChild>
+        <Button asChild>
           <label>
             Browse Files
             <input type="file" className="hidden" multiple onChange={handleFileChange} />
@@ -98,7 +98,7 @@ export function FileUploader() {
                 <span className="truncate">{file.name}</span>
                 <div className="flex items-center gap-2">
                   <span>{file.progress}%</span>
-                  <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => cancelUpload(file.name)}>
+                  <Button className="h-6 w-6" onClick={() => cancelUpload(file.name)}>
                     <X className="h-3 w-3" />
                     <span className="sr-only">Cancel</span>
                   </Button>

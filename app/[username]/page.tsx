@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 
 interface UserPageProps {
-  params: {
+  params: Promise<{
     username: string
-  }
+  }>
 }
 
-export default function UserPage({ params }: UserPageProps) {
-  const { username } = params
+export default async function UserPage({ params }: UserPageProps) {
+  const { username } =  await params
 
   // In a real app, you would fetch user data and files based on the username
   const userData = {

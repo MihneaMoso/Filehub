@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FileUploader } from "@/components/file-uploader"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function DashboardPage() {
   const { user } = useUser()
@@ -38,6 +39,7 @@ export default function DashboardPage() {
             <span className="text-xl">FileHub</span>
           </Link>
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <UserButton afterSignOutUrl="/" />
           </div>
         </div>
@@ -47,12 +49,12 @@ export default function DashboardPage() {
           <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
             <div>
               <h1 className="text-3xl font-bold">Welcome back, {displayName}!</h1>
-              <p className="text-gray-500">Manage your files and profile</p>
+              <p className="text-muted-foreground">Manage your files and profile</p>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-              <div className="flex items-center gap-2 rounded-md border bg-gray-50 px-3 py-1 text-xs sm:text-sm">
+              <div className="flex items-center gap-2 rounded-md border bg-muted px-3 py-1 text-xs sm:text-sm">
                 <span className="font-medium">Your URL:</span>
-                <span className="text-gray-500 truncate">{username}.filehub.com</span>
+                <span className="text-muted-foreground truncate">{username}.filehub.com</span>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -92,7 +94,7 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="rounded-md border overflow-x-auto">
-                    <div className="grid grid-cols-12 border-b bg-gray-50 p-3 text-sm font-medium min-w-[600px]">
+                    <div className="grid grid-cols-12 border-b bg-muted p-3 text-sm font-medium min-w-[600px]">
                       <div className="col-span-6">Name</div>
                       <div className="col-span-2">Size</div>
                       <div className="col-span-3">Date Added</div>
@@ -105,21 +107,21 @@ export default function DashboardPage() {
                           className="grid grid-cols-12 items-center border-b p-3 text-sm last:border-0 min-w-[600px]"
                         >
                           <div className="col-span-6 flex items-center gap-2">
-                            <FileText className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                            <FileText className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                             <span className="truncate">{file.name}</span>
                           </div>
                           <div className="col-span-2">{file.size}</div>
                           <div className="col-span-3">{file.date}</div>
                           <div className="col-span-1 text-right">
                             <Button variant="ghost" size="icon" onClick={() => handleDelete(file.id)}>
-                              <Trash2 className="h-4 w-4 text-gray-500" />
+                              <Trash2 className="h-4 w-4 text-muted-foreground" />
                               <span className="sr-only">Delete</span>
                             </Button>
                           </div>
                         </div>
                       ))
                     ) : (
-                      <div className="p-8 text-center text-gray-500">
+                      <div className="p-8 text-center text-muted-foreground">
                         <div className="mb-2 flex justify-center">
                           <Upload className="h-8 w-8" />
                         </div>
@@ -130,7 +132,7 @@ export default function DashboardPage() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-muted-foreground">
                     {files.length} {files.length === 1 ? "file" : "files"}
                   </div>
                   <Button variant="outline" size="sm" className="gap-1">
@@ -159,10 +161,10 @@ export default function DashboardPage() {
                     <Label>Username</Label>
                     <div className="flex items-center gap-2">
                       <Input value={username} disabled />
-                      <span className="text-sm text-gray-500">.filehub.com</span>
+                      <span className="text-sm text-muted-foreground">.filehub.com</span>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-muted-foreground">
                     To update your profile information, use the user menu in the top right corner.
                   </p>
                 </CardContent>
