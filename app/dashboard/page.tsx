@@ -2,23 +2,18 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Copy, FileText, LogOut, Plus, Settings, Trash2, Upload, User } from "lucide-react"
+import { Copy, FileText, Plus, Trash2, Upload } from "lucide-react"
+import { useUser, UserButton } from "@clerk/nextjs"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FileUploader } from "@/components/file-uploader"
 
 export default function DashboardPage() {
+  const { user } = useUser()
   const [files, setFiles] = useState([
     { id: 1, name: "Project Proposal.pdf", size: "2.4 MB", date: "2023-05-12" },
     { id: 2, name: "Resume - 2023.pdf", size: "1.8 MB", date: "2023-06-03" },
@@ -31,6 +26,9 @@ export default function DashboardPage() {
     setFiles(files.filter((file) => file.id !== id))
   }
 
+  const username = user?.username || user?.firstName?.toLowerCase() || "user"
+  const displayName = user?.fullName || user?.firstName || "User"
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
@@ -40,29 +38,7 @@ export default function DashboardPage() {
             <span className="text-xl">FileHub</span>
           </Link>
           <div className="flex items-center gap-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
-                  <User className="h-5 w-5" />
-                  <span className="sr-only">User menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <UserButton afterSignOutUrl="/" />
           </div>
         </div>
       </header>
@@ -70,20 +46,25 @@ export default function DashboardPage() {
         <div className="container mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-8">
           <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
             <div>
-              <h1 className="text-3xl font-bold">Dashboard</h1>
+              <h1 className="text-3xl font-bold">Welcome back, {displayName}!</h1>
               <p className="text-gray-500">Manage your files and profile</p>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <div className="flex items-center gap-2 rounded-md border bg-gray-50 px-3 py-1 text-xs sm:text-sm">
                 <span className="font-medium">Your URL:</span>
-                <span className="text-gray-500 truncate">johndoe.filehub.com</span>
-                <Button variant="ghost" size="icon" className="h-6 w-6">
+                <span className="text-gray-500 truncate">{username}.filehub.com</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6"
+                  onClick={() => navigator.clipboard.writeText(`${username}.filehub.com`)}
+                >
                   <Copy className="h-3 w-3" />
                   <span className="sr-only">Copy URL</span>
                 </Button>
               </div>
               <Button asChild className="w-full sm:w-auto">
-                <Link href="/johndoe">View Page</Link>
+                <Link href={`/${username}`}>View Page</Link>
               </Button>
             </div>
           </div>
@@ -163,28 +144,28 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Profile Settings</CardTitle>
-                  <CardDescription>Update your profile information</CardDescription>
+                  <CardDescription>Your profile information is managed by Clerk</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="display-name">Display Name</Label>
-                    <Input id="display-name" defaultValue="John Doe" />
+                    <Label>Display Name</Label>
+                    <Input value={displayName} disabled />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="bio">Bio</Label>
-                    <Input id="bio" defaultValue="Product Designer & Developer" />
+                    <Label>Email</Label>
+                    <Input value={user?.primaryEmailAddress?.emailAddress || ""} disabled />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="username">Username</Label>
+                    <Label>Username</Label>
                     <div className="flex items-center gap-2">
-                      <Input id="username" defaultValue="johndoe" />
+                      <Input value={username} disabled />
                       <span className="text-sm text-gray-500">.filehub.com</span>
                     </div>
                   </div>
+                  <p className="text-sm text-gray-500">
+                    To update your profile information, use the user menu in the top right corner.
+                  </p>
                 </CardContent>
-                <CardFooter>
-                  <Button>Save Changes</Button>
-                </CardFooter>
               </Card>
               <Card>
                 <CardHeader>
@@ -194,7 +175,7 @@ export default function DashboardPage() {
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="page-title">Page Title</Label>
-                    <Input id="page-title" defaultValue="John's Files" />
+                    <Input id="page-title" defaultValue={`${displayName}'s Files`} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="page-description">Page Description</Label>

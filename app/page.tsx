@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, FileText, Upload, User } from "lucide-react"
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 import { Button } from "@/components/ui/button"
 
@@ -13,14 +14,24 @@ export default function Home() {
             <span className="text-xl">FileHub</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
-            <Link href="/login">
-              <Button variant="ghost" size="sm">
-                Login
-              </Button>
-            </Link>
-            <Link href="/signup">
-              <Button size="sm">Sign Up</Button>
-            </Link>
+            <SignedOut>
+              <SignInButton>
+                <Button variant="ghost" size="sm">
+                  Sign In
+                </Button>
+              </SignInButton>
+              <SignUpButton>
+                <Button size="sm">Sign Up</Button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <Link href="/dashboard">
+                <Button variant="ghost" size="sm">
+                  Dashboard
+                </Button>
+              </Link>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
           </div>
         </div>
       </header>
@@ -39,12 +50,22 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <Link href="/signup">
-                    <Button size="lg" className="gap-2 w-full sm:w-auto">
-                      Get Started
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <SignedOut>
+                    <SignUpButton>
+                      <Button size="lg" className="gap-2 w-full sm:w-auto">
+                        Get Started
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </SignUpButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <Link href="/dashboard">
+                      <Button size="lg" className="gap-2 w-full sm:w-auto">
+                        Go to Dashboard
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </SignedIn>
                   <Link href="/demo/johndoe">
                     <Button size="lg" variant="outline" className="w-full sm:w-auto">
                       View Demo

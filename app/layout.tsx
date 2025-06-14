@@ -1,10 +1,12 @@
-import type { Metadata } from 'next'
-import './globals.css'
+import type React from "react"
+import type { Metadata } from "next"
+import { ClerkProvider } from "@clerk/nextjs"
+import "./globals.css"
 
 export const metadata: Metadata = {
-  title: 'Mosofiles: The best solution for complex personal portfolios',
-  description: 'Created by Moso',
-  generator: 'v0.dev',
+  title: "FileHub: Personal File Sharing Platform",
+  description: "Create your own personalized page with all your important files and documents",
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -13,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   )
 }

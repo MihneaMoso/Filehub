@@ -15,7 +15,7 @@ export default function UserPage({ params }: UserPageProps) {
 
   // In a real app, you would fetch user data and files based on the username
   const userData = {
-    displayName: username === "johndoe" ? "John Doe" : username,
+    displayName: username === "johndoe" ? "John Doe" : username.charAt(0).toUpperCase() + username.slice(1),
     bio: "Product Designer & Developer",
     files: [
       { id: 1, name: "Project Proposal.pdf", size: "2.4 MB" },
