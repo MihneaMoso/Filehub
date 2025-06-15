@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { FileText } from "lucide-react"
+import { notFound } from 'next/navigation'
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -10,20 +11,36 @@ interface UserPageProps {
   }>
 }
 
-export default async function UserPage({ params }: UserPageProps) {
-  const { username } =  await params
+// Mock function - replace with your actual user lookup
+async function getUserByUsername(username: string) {
+  // This should query your database to check if user exists
+  const validUsers = ['johndoe', 'janedoe', 'demo'] // Replace with actual DB query
+  return validUsers.includes(username.toLowerCase()) ? { username } : null
+}
 
-  // In a real app, you would fetch user data and files based on the username
+export default async function UserPage({ params }: UserPageProps) {
+  const { username } = await params
+  
+  // Check if user exists
+  const user = await getUserByUsername(username)
+  
+  if (!user) {
+    notFound() // This will show your 404 page
+  }
+
+  // Rest of your component for valid users
   const userData = {
-    displayName: username === "johndoe" ? "John Doe" : username.charAt(0).toUpperCase() + username.slice(1),
-    bio: "Product Designer & Developer",
+    name: "John Doe",
+    username: username,
     files: [
-      { id: 1, name: "Project Proposal.pdf", size: "2.4 MB" },
-      { id: 2, name: "Resume - 2023.pdf", size: "1.8 MB" },
-      { id: 3, name: "Portfolio.zip", size: "15.2 MB" },
-      { id: 4, name: "Meeting Notes.docx", size: "0.5 MB" },
-      { id: 5, name: "Presentation.pptx", size: "8.7 MB" },
-    ],
+      {
+        id: 1,
+        name: "Project Proposal.pdf",
+        size: "2.4 MB",
+        downloads: 12,
+      },
+      // ... more files
+    ]
   }
 
   return (
@@ -37,33 +54,31 @@ export default async function UserPage({ params }: UserPageProps) {
         </div>
       </header>
       <main className="flex-1">
-        <div className="container mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
-          <div className="mb-8 text-center">
-            <h1 className="mb-2 text-3xl font-bold">{userData.displayName}</h1>
-            <p className="text-gray-500 text-lg">{userData.bio}</p>
-            <p className="text-sm text-gray-400">{username}.filehub.com</p>
-          </div>
-          <Card className="overflow-hidden">
-            <div className="grid gap-2 p-4">
-              {userData.files.map((file) => (
-                <div
-                  key={file.id}
-                  className="flex items-center justify-between rounded-md border p-3 transition-colors hover:bg-gray-50"
-                >
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <FileText className="h-5 w-5 text-gray-500 flex-shrink-0" />
-                    <div className="min-w-0 flex-1">
-                      <div className="font-medium truncate">{file.name}</div>
-                      <div className="text-xs text-gray-500">{file.size}</div>
-                    </div>
-                  </div>
-                  <Button size="sm" className="flex-shrink-0 ml-2">
-                    Download
-                  </Button>
-                </div>
-              ))}
+        <div className="container mx-auto max-w-4xl p-6">
+          <div className="mb-6 flex items-center gap-4 border-b pb-4">
+            <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center">
+              <span className="text-2xl font-bold">{userData.name.charAt(0)}</span>
             </div>
-          </Card>
+            <div>
+              <h1 className="text-2xl font-bold">{userData.name}</h1>
+              <p className="text-muted-foreground">@{userData.username}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Files</h2>
+            {userData.files.map((file) => (
+              <div key={file.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div>
+                  <h3 className="font-medium">{file.name}</h3>
+                  <p className="text-sm text-muted-foreground">{file.size} • {file.downloads} downloads</p>
+                </div>
+                <button className="px-4 py-2 bg-primary text-primary-foreground rounded">
+                  Download
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </main>
       <footer className="border-t py-4 text-center text-sm text-gray-500">Powered by FileHub</footer>

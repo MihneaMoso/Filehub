@@ -6,6 +6,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import "./globals.css"
+import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "FileHub: Personal File Sharing Platform",
@@ -35,6 +36,7 @@ export default function RootLayout({
               <div className="flex-1">
                 {children}
               </div>
+              <Footer />
             </div>
           </ThemeProvider>
         </body>

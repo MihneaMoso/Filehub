@@ -126,22 +126,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="border-t">
-        <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4 md:px-6">
-          <div className="text-sm text-muted-foreground">© 2023 FileHub. All rights reserved.</div>
-          <nav className="flex gap-2 sm:gap-4 text-sm">
-            <Link href="#" className="text-muted-foreground hover:underline">
-              Terms
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:underline">
-              Privacy
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:underline">
-              Contact
-            </Link>
-          </nav>
-        </div>
-      </footer>
     </>
   )
 }

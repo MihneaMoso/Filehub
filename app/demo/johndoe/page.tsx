@@ -51,7 +51,7 @@ export default function JohnDoeDemoPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <header className="border-b">
+      {/* <header className="border-b">
         <div className="container mx-auto max-w-4xl flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
@@ -64,7 +64,7 @@ export default function JohnDoeDemoPage() {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
 
       <main className="flex-1">
         <div className="container mx-auto max-w-4xl px-4 py-8 md:px-6">
